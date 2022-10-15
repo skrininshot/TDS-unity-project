@@ -203,7 +203,7 @@ public class Player : MonoBehaviour
     {
         if (isInteracting) return;
         Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
-        newBullet.transform.position = transform.position + transform.right * 1.5f;
+        newBullet.transform.position = transform.position + transform.right * 1.25f;
         newBullet.transform.rotation = transform.rotation;
     }
 

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Character_Shoot
+  m_Name: Enemy_Shoot
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 9b0642a342de3c74291ee193b4258e8c, type: 3}
+      value: {fileID: 21300000, guid: 03128ae923a38af4285d92b6c05ecf1e, type: 3}
     - time: 0.06666667
-      value: {fileID: 21300000, guid: 8c1db870116f6c5469b3f09a2a1b6942, type: 3}
+      value: {fileID: 21300000, guid: 57854c9752528b248ab2f4a53e9539bb, type: 3}
     - time: 0.13333334
-      value: {fileID: 21300000, guid: 0f04aa15068179641bd8f2ce77431fa1, type: 3}
+      value: {fileID: 21300000, guid: 693e52fb2e6be124abc51b58e122535d, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 0f04aa15068179641bd8f2ce77431fa1, type: 3}
+      value: {fileID: 21300000, guid: 693e52fb2e6be124abc51b58e122535d, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -47,10 +47,10 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 9b0642a342de3c74291ee193b4258e8c, type: 3}
-    - {fileID: 21300000, guid: 8c1db870116f6c5469b3f09a2a1b6942, type: 3}
-    - {fileID: 21300000, guid: 0f04aa15068179641bd8f2ce77431fa1, type: 3}
-    - {fileID: 21300000, guid: 0f04aa15068179641bd8f2ce77431fa1, type: 3}
+    - {fileID: 21300000, guid: 03128ae923a38af4285d92b6c05ecf1e, type: 3}
+    - {fileID: 21300000, guid: 57854c9752528b248ab2f4a53e9539bb, type: 3}
+    - {fileID: 21300000, guid: 693e52fb2e6be124abc51b58e122535d, type: 3}
+    - {fileID: 21300000, guid: 693e52fb2e6be124abc51b58e122535d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

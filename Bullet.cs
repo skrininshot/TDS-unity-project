@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 50f;
     private SpriteRenderer sprite;
     private float alpha = 0;
     private Color color;
@@ -14,8 +14,6 @@ public class Bullet : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         color = sprite.color;
-        color.a = alpha;
-        sprite.color = color;     
         rb.velocity = transform.right * speed;
         StartCoroutine(BulletAnimation());
     }
@@ -31,17 +29,16 @@ public class Bullet : MonoBehaviour
         while (alpha < 1)
         {
             transform.localScale = Vector3.right * (alpha * 2) + Vector3.up;
-            color.a = alpha;
-            sprite.color = color;
-            alpha += 0.05f;
-            yield return new WaitForSeconds(Time.deltaTime);
+            alpha += 0.25f;
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
+        alpha = 1;
         while (alpha > 0)
         {
             color.a = alpha;
             sprite.color = color;
-            alpha -= 0.05f;
-            yield return new WaitForSeconds(Time.deltaTime);
+            alpha -= 0.25f;
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
         Destroy(gameObject);
     }
