@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Shop : Menu
 {
-    public enum ShopOptionTypes { MaxHP, MaxDamage, LootCost, LootTime, MoveSpeed, MaxAmmo, ShootSpeed, Luck }
-    private string[] optionsNames = new string[8];
-    private string[] optionsInfo = new string[8];
-    private int[] optionsCosts = new int[8];
+    public enum ShopOptionTypes { MaxHP, MaxDamage, LootCost, LootTime, MoveSpeed, MaxAmmo, ShootSpeed, Luck, InventorySlot }
+    private string[] optionsNames = new string[9];
+    private string[] optionsInfo = new string[9];
+    private int[] optionsCosts = new int[9];
 
     private List<ShopOption> Options = new List<ShopOption>();
     private ShopOption selectedOption = null;
@@ -52,6 +52,10 @@ public class Shop : Menu
         optionsInfo[7] = "This option will increase your your luck. But is it worth relying on it?";
         optionsCosts[7] = 50;
 
+        optionsNames[8] = "Inventory slot";
+        optionsInfo[8] = "This option gives you one extra slot in your inventory.";
+        optionsCosts[8] = 50;
+
         ClearInfo();
         Options.AddRange(FindObjectsOfType<ShopOption>());
         Debug.Log("Start count of cells in shop: " + Options.Count);
@@ -76,10 +80,21 @@ public class Shop : Menu
             return;
         }
 
-        headerText.Text = optionsNames[(int)selectedOption.optionType];
-        descriptionText.Text = optionsInfo[(int)selectedOption.optionType];
-        costText.Text = optionsCosts[(int)selectedOption.optionType].ToString() + "$";
-        Debug.Log((int)selectedOption.optionType);
+        headerText.Text = optionsNames[(int)selectedOption.OptionType];
+        descriptionText.Text = optionsInfo[(int)selectedOption.OptionType];
+        costText.Text = optionsCosts[(int)selectedOption.OptionType].ToString() + "$";
+        Debug.Log((int)selectedOption.OptionType);
+    }
+
+    public void Buy()
+    {
+        if (selectedOption == null) return;
+        ShopOptionTypes optionType = selectedOption.OptionType;
+        switch (optionType)
+        {
+            case ShopOptionTypes.MaxHP:
+                break;
+        }
     }
 
     private void ClearInfo()

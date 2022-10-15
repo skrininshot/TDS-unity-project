@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ShopOption : MonoBehaviour
 {   
-    public Shop.ShopOptionTypes optionType; 
+    public Shop.ShopOptionTypes OptionType; 
     [HideInInspector] public bool IsSelected
     {
         get

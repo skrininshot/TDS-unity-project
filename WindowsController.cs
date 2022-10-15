@@ -5,23 +5,23 @@ using UnityEngine;
 public class WindowsController : MonoBehaviour
 {
     public Menu[] windows;
-
-    public void ShowMenu(int menu, bool visible)
+    public void ShowMenu(Menu menu, bool visible)
     {
         for (int i = 0; i < windows.Length; i++)
         {
             windows[i].SetVisible(false);
         }
-        windows[menu].SetVisible(visible);
+        menu.SetVisible(visible);
+        FindObjectOfType<Player>().IsInteracting = visible;
     }
 
     public void ShowInventory(bool visible)
     {
-        ShowMenu(0, visible);
+        ShowMenu(windows[0], visible);
     }
 
     public void ShowShop(bool visible)
     {
-        ShowMenu(1, visible);
+        ShowMenu(windows[1], visible);
     }
 }

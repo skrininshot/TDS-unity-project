@@ -5,12 +5,125 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
    
-    [SerializeField] private float moveSpeed = 5;
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
+    [SerializeField] private float moveSpeed = 5f;
+
+    public float DiggingTime
+    {
+        get
+        {
+            return diggingTime;
+        }
+        set
+        {
+            diggingTime = value;
+        }
+    }
     [SerializeField] private float diggingTime = 5f;
+
+    public int MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+        set
+        {
+            maxHP = value;
+        }
+    }
+    [SerializeField] private int maxHP = 100;
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+        }
+    }
+    [SerializeField] private int health = 100;
+
+    public float ShootingSpeed
+    {
+        get
+        {
+            return shootingSpeed;
+        }
+        set
+        {
+            shootingSpeed = value;
+        }
+    }
+    [SerializeField] private float shootingSpeed = 50f;
+
+    public int MaxAmmo
+    {
+        get
+        {
+            return maxAmmo;
+        }
+        set
+        {
+            maxAmmo = value;
+        }
+    }
+    [SerializeField] private int maxAmmo = 20;
+
+    public int Money
+    {
+        get
+        {
+            return money;
+        }
+        set
+        {
+            money = value;
+        }
+    }
+    [SerializeField] private int money = 0;
+
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            Score = value;
+        }
+    }
+    [SerializeField] private int score;
+
+    [SerializeField] private Bullet bullet;
+
     private Rigidbody2D rigidbody;
     private ItemChecker checker;
-    private Interactive interactingItem;
-    private bool isInteracting { get {return interactingItem != null; } }
+    public bool IsInteracting {
+        get { 
+            return isInteracting; 
+        } 
+        set {
+            isInteracting = value; 
+            if (value) StopMoving(); 
+        } 
+    }
+    private bool isInteracting;
+
 
     void Start()
     {
@@ -23,11 +136,14 @@ public class Player : MonoBehaviour
         if (isInteracting) return;
         Movement();
         LookAt(GetPointerInWorld(), 0.5f);  
+        
     }
 
     private void Update()
     {
+        if (isInteracting) return;
         Interact();
+        Shooting();
     }
 
     private void Interact()
@@ -36,9 +152,7 @@ public class Player : MonoBehaviour
         {
             Interactive nearest = checker.GetNearestInteractive();
             if (nearest is null) return;
-            if (isInteracting) return;
-            interactingItem = nearest;
-
+            StopMoving();
             switch (nearest)
             {
                 case Item:
@@ -46,7 +160,6 @@ public class Player : MonoBehaviour
                     break;
                 case Huckster:
                     nearest.Interact();
-                    interactingItem = null;
                     break;
             }    
         }
@@ -59,14 +172,16 @@ public class Player : MonoBehaviour
 
     private IEnumerator Digging(Interactive interactiveItem)
     {
+        isInteracting = true;
+
         if (FindObjectOfType<Inventory>().HasSpace)
         {
-            StopMoving();
             LookAt(interactiveItem.transform.position);
             yield return new WaitForSeconds(diggingTime);
             interactiveItem.Interact();
         }
-        interactingItem = null;
+
+        isInteracting = false;
     }
 
     private void StopMoving()
@@ -80,6 +195,16 @@ public class Player : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(moveX, moveY, 0).normalized;
         rigidbody.velocity = direction * moveSpeed;
+    }
+
+    private void Shooting()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
+            newBullet.transform.position = transform.position + transform.right * 1.5f;
+            newBullet.transform.rotation = transform.rotation;
+        }
     }
 
     private Vector3 GetPointerInWorld()

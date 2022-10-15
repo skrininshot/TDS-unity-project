@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
         }
         set
         {
-            if (!value) SetVisible(false);
+            if (!value) FindObjectOfType<WindowsController>().ShowMenu(this, false);
             menuButton.SetActive(value);
             accessible = value;
         }
