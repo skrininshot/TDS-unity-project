@@ -113,14 +113,17 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rigidbody;
     private ItemChecker checker;
-    public bool IsInteracting {
-        get { 
-            return isInteracting; 
-        } 
-        set {
-            isInteracting = value; 
-            if (value) StopMoving(); 
-        } 
+    public bool IsInteracting
+    {
+        get
+        {
+            return isInteracting;
+        }
+        set
+        {
+            isInteracting = value;
+            if (value) StopMoving();
+        }
     }
     private bool isInteracting;
 
@@ -141,13 +144,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (isInteracting) return;
         Interact();
-        Shooting();
     }
 
     private void Interact()
     {
+        if (isInteracting) return;
         if (Input.GetKeyDown(KeyCode.E))
         {
             Interactive nearest = checker.GetNearestInteractive();
@@ -197,14 +199,12 @@ public class Player : MonoBehaviour
         rigidbody.velocity = direction * moveSpeed;
     }
 
-    private void Shooting()
+    public void Shooting()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
-            newBullet.transform.position = transform.position + transform.right * 1.5f;
-            newBullet.transform.rotation = transform.rotation;
-        }
+        if (isInteracting) return;
+        Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
+        newBullet.transform.position = transform.position + transform.right * 1.5f;
+        newBullet.transform.rotation = transform.rotation;
     }
 
     private Vector3 GetPointerInWorld()

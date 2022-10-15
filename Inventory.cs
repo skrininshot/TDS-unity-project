@@ -87,7 +87,8 @@ public class Inventory : Menu
         if (selectedItem == null) return;
 
         Item newItem = Instantiate(dropItemPrefab, FindObjectOfType<ItemsManager>().transform).GetComponent<Item>();
-        Vector3 playerPosition = FindObjectOfType<Player>().transform.position;
+        Vector3 randomPosition = Quaternion.Euler(0, 0, Random.Range(-180, 180)) * transform.right * (Random.Range(0, 10)/10f);
+        Vector3 playerPosition = FindObjectOfType<Player>().transform.position + randomPosition;
         newItem.transform.position = new Vector3(playerPosition.x, playerPosition.y, -0.2f);
         newItem.Type = selectedItem.Type;
         selectedItem.Cell.SetSelectedState(false);

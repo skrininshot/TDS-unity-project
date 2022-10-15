@@ -7,24 +7,17 @@ public class Bullet : MonoBehaviour
     private SpriteRenderer sprite;
     private float alpha = 0;
     private Color color;
+    private Rigidbody2D rb;
 
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         color = sprite.color;
         color.a = alpha;
-        sprite.color = color;
-        StartCoroutine(DestroyTimer());
-        StartCoroutine(ChangeAlpha());
-        rb = GetComponent<Rigidbody2D>();
+        sprite.color = color;     
         rb.velocity = transform.right * speed;
-    }
-
-    private Rigidbody2D rb;
-    private void Update()
-    {
-        //transform.position += transform.right * speed * Time.deltaTime;
-        //rb.velocity = transform.right * speed * Time.deltaTime;
+        StartCoroutine(BulletAnimation());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,20 +26,23 @@ public class Bullet : MonoBehaviour
         Debug.Log("Bullet destroyed");
     }
 
-    private IEnumerator DestroyTimer()
-    {
-        yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
-    }
-
-    private IEnumerator ChangeAlpha()
+    private IEnumerator BulletAnimation()
     {
         while (alpha < 1)
         {
+            transform.localScale = Vector3.right * (alpha * 2) + Vector3.up;
             color.a = alpha;
             sprite.color = color;
-            alpha += 0.25f;
-            yield return new WaitForEndOfFrame();
-        }    
+            alpha += 0.05f;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        while (alpha > 0)
+        {
+            color.a = alpha;
+            sprite.color = color;
+            alpha -= 0.05f;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        Destroy(gameObject);
     }
 }
