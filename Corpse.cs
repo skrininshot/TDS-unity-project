@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Corpse : MonoBehaviour
 {
-    private float speed = 0.5f;
+    private float speed = 20f;
     private void Start()
     {
         StartCoroutine(FallingAnimation());
@@ -12,11 +12,11 @@ public class Corpse : MonoBehaviour
     }
     IEnumerator FallingAnimation()
     {
-        while (speed > 0)
+        while (speed > 0.01f)
         {
             yield return new WaitForSeconds(Time.fixedDeltaTime);
-            transform.position += transform.right * speed;
-            speed -= 0.15f;
+            transform.position += transform.right * speed * Time.deltaTime;
+            speed -= speed / 1.5f;
         }
         Destroy(GetComponent<Corpse>());
     }

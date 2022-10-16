@@ -162,7 +162,7 @@ public class Player : Character
     {
         base.Die();
         FindObjectOfType<WindowsController>().HideAll();
-        GameObject corpse = Instantiate(corpseObject);
+        Corpse corpse = Instantiate(corpseObject).GetComponent<Corpse>();
         corpse.transform.rotation = damageDirection;
         corpse.transform.position = transform.position;
         Destroy(gameObject);
