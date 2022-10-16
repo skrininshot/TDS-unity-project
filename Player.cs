@@ -4,20 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Character
 {
-   
-    public float MoveSpeed
-    {
-        get
-        {
-            return moveSpeed;
-        }
-        set
-        {
-            moveSpeed = value;
-        }
-    }
-    [SerializeField] private float moveSpeed = 5f;
-
     public float DiggingTime
     {
         get
@@ -72,6 +58,9 @@ public class Player : Character
 
     [SerializeField] private Bullet bulletPrefab;
 
+    private Camera cam;
+    [SerializeField] private float camSpeed = 100f;
+
     private ItemChecker checker;
     public bool IsInteracting
     {
@@ -87,10 +76,12 @@ public class Player : Character
     }
     private bool isInteracting;
 
-    private Rigidbody2D rb;
-    
+    [SerializeField] private GameObject corpseObject;
+      
     private void Start()
     {
+        moveSpeed = 5f;
+        cam = Camera.main;
         bullet = bulletPrefab;
         rb = GetComponent<Rigidbody2D>();
         checker = transform.GetComponentInChildren<ItemChecker>();
@@ -99,7 +90,9 @@ public class Player : Character
     void FixedUpdate()
     {
         if (isInteracting) return;
-        Movement();
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        Movement(new Vector3(moveX, moveY, 0).normalized);
         LookAt(GetPointerInWorld(), 0.5f);  
         
     }
@@ -107,6 +100,11 @@ public class Player : Character
     private void Update()
     {
         Interact();
+    }
+
+    void LateUpdate()
+    {
+        cam.transform.position = Vector3.MoveTowards(cam.transform.position, transform.position + Vector3.forward * -50f, camSpeed * Time.deltaTime);
     }
 
     private void Interact()
@@ -148,19 +146,6 @@ public class Player : Character
         isInteracting = false;
     }
 
-    public override void Movement()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(moveX, moveY, 0).normalized;
-        rb.velocity = direction * moveSpeed;
-    }
-
-    private void StopMoving()
-    {
-        rb.velocity = new Vector2(0, 0);
-    }
-
     public override void Shooting()
     {
         if (isInteracting) return;
@@ -171,5 +156,15 @@ public class Player : Character
     {
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         return Camera.main.ScreenToWorldPoint(mousePosition);
-    }  
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        FindObjectOfType<WindowsController>().HideAll();
+        GameObject corpse = Instantiate(corpseObject);
+        corpse.transform.rotation = damageDirection;
+        corpse.transform.position = transform.position;
+        Destroy(gameObject);
+    }
 }

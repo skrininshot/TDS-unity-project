@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class Character : MonoBehaviour
 {
     public int MaxHP
@@ -43,7 +43,7 @@ public class Character : MonoBehaviour
             damage = value;
         }
     }
-    protected int damage;
+    protected int damage = 25;
     public float ShootingSpeed
     {
         get
@@ -57,7 +57,23 @@ public class Character : MonoBehaviour
     }
     protected float shootingSpeed = 50f;
 
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
+    protected float moveSpeed = 10f;
+
     protected Bullet bullet;
+    protected Rigidbody2D rb;
+
+    public Quaternion damageDirection;
 
     public virtual void Shooting()
     {
@@ -74,13 +90,18 @@ public class Character : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), speed);
     }
 
-    public virtual void Movement()
+    public virtual void Movement(Vector3 direction)
     {
+        rb.velocity = direction * moveSpeed;
+    }
 
+    public virtual void  StopMoving()
+    {
+        rb.velocity = new Vector2(0, 0);
     }
 
     public virtual void Die()
     {
-
+        StopMoving();
     }
 }

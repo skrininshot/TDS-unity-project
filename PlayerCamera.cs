@@ -12,9 +12,5 @@ public class PlayerCamera : MonoBehaviour
         target = FindObjectOfType<Player>().GetComponent<Transform>();
     }
 
-    void LateUpdate()
-    {
-        Vector3 targetPoint = new Vector3(target.position.x, target.position.y, transform.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
-    }
+    
 }

@@ -13,6 +13,7 @@ public class ShootAreaChecker : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
+        if (player == null) return;
         player.Shooting();
     }
 }

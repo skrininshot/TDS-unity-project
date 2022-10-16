@@ -18,13 +18,13 @@ public class Bullet : MonoBehaviour
         rb.velocity = transform.right * speed;
         StartCoroutine(BulletAnimation());
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var character = collision.gameObject.GetComponent<Character>();
         if (character != null)
         {
-            character.Health -= 10;
+            character.damageDirection = transform.rotation;
+            character.Health -= Damage;
             Debug.Log("Collision with the character");
         }
         Destroy(gameObject);

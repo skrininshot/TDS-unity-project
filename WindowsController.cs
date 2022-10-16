@@ -24,4 +24,12 @@ public class WindowsController : MonoBehaviour
     {
         ShowMenu(windows[1], visible);
     }
+
+    public void HideAll()
+    {
+        for (int i = 0; i < windows.Length; i++)
+        {
+            windows[i].Accessible = false;
+        }
+    }
 }
