@@ -4877,12 +4877,11 @@ MonoBehaviour:
   moveSpeed: 5
   diggingTime: 0
   maxHP: 100
-  health: 100
   shootingSpeed: 0
   maxAmmo: 20
   money: 0
   score: 0
-  bullet: {fileID: 5297764904531873839, guid: 5916f2bd8d6c97f49924a6c8edc23256, type: 3}
+  bulletPrefab: {fileID: 5297764904531873839, guid: 5916f2bd8d6c97f49924a6c8edc23256, type: 3}
 --- !u!50 &1080096170
 Rigidbody2D:
   serializedVersion: 4
@@ -5860,6 +5859,7 @@ GameObject:
   - component: {fileID: 1269820774}
   - component: {fileID: 1269820771}
   - component: {fileID: 1269820770}
+  - component: {fileID: 1269820776}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -5963,13 +5963,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269820769}
   m_LocalRotation: {x: -0, y: -0, z: -0.36527508, w: 0.9308996}
-  m_LocalPosition: {x: -0.35, y: 4.17, z: -2}
+  m_LocalPosition: {x: 12.35, y: 0.07, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -42.849}
+--- !u!114 &1269820776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269820769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a7f5524497454418d7f4d7cc84b41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5297764904531873839, guid: 5916f2bd8d6c97f49924a6c8edc23256, type: 3}
 --- !u!1001 &1274562999
 PrefabInstance:
   m_ObjectHideFlags: 0

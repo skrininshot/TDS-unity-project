@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     private float alpha = 0;
     private Color color;
     private Rigidbody2D rb;
+    public int Damage;
 
     private void Start()
     {
@@ -20,6 +21,12 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        var character = collision.gameObject.GetComponent<Character>();
+        if (character != null)
+        {
+            character.Health -= 10;
+            Debug.Log("Collision with the character");
+        }
         Destroy(gameObject);
         Debug.Log("Bullet destroyed");
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : Character
 {
    
     public float MoveSpeed
@@ -30,45 +30,6 @@ public class Player : MonoBehaviour
         }
     }
     [SerializeField] private float diggingTime = 5f;
-
-    public int MaxHP
-    {
-        get
-        {
-            return maxHP;
-        }
-        set
-        {
-            maxHP = value;
-        }
-    }
-    [SerializeField] private int maxHP = 100;
-
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-        set
-        {
-            health = value;
-        }
-    }
-    [SerializeField] private int health = 100;
-
-    public float ShootingSpeed
-    {
-        get
-        {
-            return shootingSpeed;
-        }
-        set
-        {
-            shootingSpeed = value;
-        }
-    }
-    [SerializeField] private float shootingSpeed = 50f;
 
     public int MaxAmmo
     {
@@ -109,9 +70,8 @@ public class Player : MonoBehaviour
     }
     [SerializeField] private int score;
 
-    [SerializeField] private Bullet bullet;
+    [SerializeField] private Bullet bulletPrefab;
 
-    private Rigidbody2D rigidbody;
     private ItemChecker checker;
     public bool IsInteracting
     {
@@ -127,10 +87,12 @@ public class Player : MonoBehaviour
     }
     private bool isInteracting;
 
-
-    void Start()
+    private Rigidbody2D rb;
+    
+    private void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        bullet = bulletPrefab;
+        rb = GetComponent<Rigidbody2D>();
         checker = transform.GetComponentInChildren<ItemChecker>();
     }
 
@@ -186,37 +148,28 @@ public class Player : MonoBehaviour
         isInteracting = false;
     }
 
-    private void StopMoving()
-    {
-        rigidbody.velocity = new Vector2(0, 0);
-    }
-
-    private void Movement()
+    public override void Movement()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(moveX, moveY, 0).normalized;
-        rigidbody.velocity = direction * moveSpeed;
+        rb.velocity = direction * moveSpeed;
     }
 
-    public void Shooting()
+    private void StopMoving()
+    {
+        rb.velocity = new Vector2(0, 0);
+    }
+
+    public override void Shooting()
     {
         if (isInteracting) return;
-        Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
-        newBullet.transform.position = transform.position + transform.right * 1.25f;
-        newBullet.transform.rotation = transform.rotation;
+        base.Shooting();
     }
 
     private Vector3 GetPointerInWorld()
     {
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         return Camera.main.ScreenToWorldPoint(mousePosition);
-    }
-
-    private void LookAt(Vector3 point, float speed = 1f)
-    {
-        Vector3 lookPosition = point - transform.position;
-        float angle = Mathf.Atan2(lookPosition.y, lookPosition.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), speed);
-    }
+    }  
 }
