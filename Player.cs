@@ -39,6 +39,7 @@ public class Player : Character
         set
         {
             money = value;
+            moneyText.Text = money.ToString() + "$";
         }
     }
     [SerializeField] private int money = 0;
@@ -77,6 +78,7 @@ public class Player : Character
     private bool isInteracting;
 
     [SerializeField] private GameObject corpseObject;
+    [SerializeField] private TextControl moneyText;
       
     private void Start()
     {

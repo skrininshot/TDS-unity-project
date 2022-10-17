@@ -13,8 +13,10 @@ public class Huckster : Interactive
     {
         var player = other.GetComponent<ItemChecker>();
         if (player != null)
+        {
             FindObjectOfType<WindowsController>().windows[1].Accessible = true;
-        Debug.Log("Enter to huckster");
+            Debug.Log("Enter to huckster");
+        }  
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -22,6 +24,6 @@ public class Huckster : Interactive
         var player = other.GetComponent<ItemChecker>();
         if (player != null)
             FindObjectOfType<WindowsController>().windows[1].Accessible = false;
-        Debug.Log("Exit");
+        Debug.Log("Exit huckster");
     }
 }

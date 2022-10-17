@@ -35,6 +35,7 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
         }
     }
     private bool isSelected;
+    private int price = 0;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
         type = newType;
         sprite.sprite = sprites[(int)type];
         sprite.SetNativeSize();
+        price = ItemsManager.Prices[(int)type];
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
@@ -107,5 +109,10 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
             }
         }
         return nearest;
+    }
+
+    public void Sell()
+    {
+        FindObjectOfType<Player>().Money += price;
     }
 }

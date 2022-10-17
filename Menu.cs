@@ -6,7 +6,7 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] protected GameObject menuButton;
     [SerializeField] protected GameObject exitZone;
-    public bool Accessible
+    public virtual bool Accessible
     {
         get
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : Menu
 {
@@ -16,6 +17,17 @@ public class Shop : Menu
     [SerializeField] TextControl descriptionText;
     [SerializeField] TextControl costText;
 
+    [SerializeField] private Button sellButton;
+
+    public override bool Accessible
+    {
+        get => base.Accessible;
+        set 
+        {
+            base.Accessible = value;
+            sellButton.gameObject.SetActive(value);
+        }
+    }
     private void Start()
     {
         accessible = false;
@@ -83,7 +95,6 @@ public class Shop : Menu
         headerText.Text = optionsNames[(int)selectedOption.OptionType];
         descriptionText.Text = optionsInfo[(int)selectedOption.OptionType];
         costText.Text = optionsCosts[(int)selectedOption.OptionType].ToString() + "$";
-        Debug.Log((int)selectedOption.OptionType);
     }
 
     public void Buy()

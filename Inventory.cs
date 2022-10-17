@@ -112,4 +112,14 @@ public class Inventory : Menu
             item.transform.position = item.Cell.transform.position;
         }
     }
+
+    public void Sell()
+    {
+        if (selectedItem == null) return;
+        selectedItem.Sell();
+        selectedItem.IsSelected = false;
+        Destroy(selectedItem.gameObject);
+        Items.Remove(selectedItem);
+        Debug.Log($"Sell item. Items count: {Items.Count}");
+    }
 }
