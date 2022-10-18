@@ -35,10 +35,11 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
         }
     }
     private bool isSelected;
-    private int price = 0;
-
+    private Inventory inventory;
+    private bool isMove;
     private void Awake()
     {
+        inventory = FindObjectOfType<Inventory>();
         SetCellOnStart(GetNearestCell());
         sprite = GetComponent<Image>();
     }
@@ -49,13 +50,11 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
         type = newType;
         sprite.sprite = sprites[(int)type];
         sprite.SetNativeSize();
-        price = ItemsManager.Prices[(int)type];
     }
 
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         isClicked = true;
-       
         addedDistance = transform.position - Input.mousePosition;
         transform.SetAsLastSibling();
     }
@@ -63,16 +62,20 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
     public void OnPointerUp(PointerEventData pointerEventData)
     {
         isClicked = false;
-
         ChangeCell(GetNearestCell());
-        FindObjectOfType<Inventory>().SetSelectedState(this, !isSelected);  
+        inventory.SetSelectedState(this, !isSelected);
+        isMove = false;
     }
 
     public void OnPointerMove(PointerEventData pointerEventData)
     {
         if (!isClicked) return;
+        if (!isMove) 
+        {
+            isMove = true;
+            inventory.SetSelectedState(this, false);
+        }
         transform.position = pointerEventData.position + addedDistance;
-        FindObjectOfType<Inventory>().SetSelectedState(this, false);
     }
 
     private void ChangeCell(InventoryCell newCell)
@@ -93,11 +96,11 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
 
     private InventoryCell GetNearestCell()
     {
-        if (FindObjectOfType<Inventory>().Cells.Count == 0) return null;
+        if (inventory.Cells.Count == 0) return null;
 
         float minDistance = Mathf.Infinity;
         InventoryCell nearest = null;
-        foreach (InventoryCell potentialNearest in FindObjectOfType<Inventory>().Cells)
+        foreach (InventoryCell potentialNearest in inventory.Cells)
         {
             Vector2 potentialPosition = potentialNearest.transform.position;
             Vector2 position = transform.position;
@@ -109,10 +112,5 @@ public class InventoryItem : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
             }
         }
         return nearest;
-    }
-
-    public void Sell()
-    {
-        FindObjectOfType<Player>().Money += price;
     }
 }

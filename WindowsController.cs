@@ -12,7 +12,7 @@ public class WindowsController : MonoBehaviour
             windows[i].SetVisible(false);
         }
         menu.SetVisible(visible);
-        FindObjectOfType<Player>().IsInteracting = visible;
+        FindObjectOfType<Player>().Freeze = visible;
     }
 
     public void ShowInventory(bool visible)

@@ -63,7 +63,6 @@ public class Item : Interactive
 
     public override void Interact()
     {
-        Debug.Log("Interact with " + name);
         if (FindObjectOfType<Inventory>().AddItem(type)) 
         {
             Destroy(gameObject);

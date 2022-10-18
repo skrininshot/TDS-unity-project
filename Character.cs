@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Character : MonoBehaviour
 {
-    public int MaxHP
+    public virtual int MaxHP
     {
         get
         {
@@ -16,7 +16,7 @@ public class Character : MonoBehaviour
         }
     }
     protected int maxHP = 100;
-    public int Health
+    public virtual int Health
     {
         get
         {
@@ -44,7 +44,7 @@ public class Character : MonoBehaviour
         }
     }
     protected int damage = 25;
-    public float ShootingSpeed
+    public virtual float ShootingSpeed
     {
         get
         {
@@ -55,7 +55,7 @@ public class Character : MonoBehaviour
             shootingSpeed = value;
         }
     }
-    protected float shootingSpeed = 50f;
+    protected float shootingSpeed = 0.5f;
 
     public float MoveSpeed
     {

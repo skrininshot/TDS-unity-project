@@ -12,7 +12,11 @@ public class Inventory : Menu
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private Transform cellsParent;
     [SerializeField] private GameObject dropItemPrefab;
+    [SerializeField] private TextControl itemName;
+    [SerializeField] private TextControl itemDescription;
+    [SerializeField] private TextControl itemPrice;
     private readonly int maxCells = 12;
+    private Player player;
 
     public bool HasSpace
     {
@@ -23,8 +27,10 @@ public class Inventory : Menu
     }
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         Cells.AddRange(FindObjectsOfType<InventoryCell>());
         Debug.Log("Start count of cells in inventory: " + Cells.Count);
+        ClearItemInfo();
     }
 
     public void AddCell()
@@ -36,30 +42,6 @@ public class Inventory : Menu
         StartCoroutine(SetItemsPositions());
     }
 
-    #region debug methods
-    public void AddItem()
-    {
-        if (Items.Count + 1 > Cells.Count) return;
-
-        InventoryItem newItem = Instantiate(itemPrefab, itemsParent).GetComponent<InventoryItem>();
-        newItem.transform.SetAsLastSibling();
-        newItem.Type = ItemsManager.ItemsTypes.Nothing;
-        Items.Add(newItem);
-        Debug.Log("Item added to inventory: " + newItem.Type.ToString());
-    }
-
-    public void DeleteCell()
-    {
-        if (Cells.Count == 0) return;
-
-        InventoryCell deleteCell = Cells[Cells.Count - 1];
-        if (deleteCell.Item != null) DeleteInventoryItem(deleteCell.Item);
-        Cells.Remove(deleteCell);
-        Destroy(deleteCell.gameObject);
-        StartCoroutine(SetItemsPositions());
-    }
-    #endregion
-
     public void SetSelectedState(InventoryItem selectedItem, bool isSelected)
     {
         foreach (InventoryItem item in Items)
@@ -68,6 +50,8 @@ public class Inventory : Menu
         }
         selectedItem.IsSelected = isSelected;
         this.selectedItem = (selectedItem.IsSelected ? selectedItem : null);
+        if (this.selectedItem != null) SetItemInfo();
+        else ClearItemInfo();
     }
 
     public bool AddItem(ItemsManager.ItemsTypes type)
@@ -91,16 +75,17 @@ public class Inventory : Menu
         Vector3 playerPosition = FindObjectOfType<Player>().transform.position + randomPosition;
         newItem.transform.position = new Vector3(playerPosition.x, playerPosition.y, -0.2f);
         newItem.Type = selectedItem.Type;
-        selectedItem.Cell.SetSelectedState(false);
-        DeleteInventoryItem(selectedItem);
-        selectedItem = null;
+        DeleteSelectedItem();
         Debug.Log("Drop item: " + newItem.Type.ToString());
     }
 
-    public void DeleteInventoryItem(InventoryItem item)
+    public void DeleteSelectedItem()
     {
-        Items.Remove(item);
-        Destroy(item.gameObject);  
+        ClearItemInfo();
+        selectedItem.IsSelected = false;
+        Items.Remove(selectedItem);
+        Destroy(selectedItem.gameObject);
+        selectedItem = null;
     }
 
     private IEnumerator SetItemsPositions()
@@ -116,10 +101,54 @@ public class Inventory : Menu
     public void Sell()
     {
         if (selectedItem == null) return;
-        selectedItem.Sell();
-        selectedItem.IsSelected = false;
-        Destroy(selectedItem.gameObject);
-        Items.Remove(selectedItem);
+        int index = (int)selectedItem.Type;
+        player.Money += ItemsManager.Prices[index] * (int)player.LootCost;
+        DeleteSelectedItem();
         Debug.Log($"Sell item. Items count: {Items.Count}");
+    }
+
+    public void SetItemInfo()
+    {
+        int index = (int)selectedItem.Type;
+        itemName.Text = ItemsManager.ItemsNames[index];
+        itemDescription.Text = ItemsManager.ItemsDescriptions[index];
+        itemPrice.Text = (ItemsManager.Prices[index] * (int)player.LootCost ).ToString() + "$";
+    }
+
+    public void ClearItemInfo()
+    {
+        itemName.Clear();
+        itemDescription.Clear();
+        itemPrice.Clear();
+    }
+
+    public void Use()
+    {
+        if (selectedItem == null) return;
+        int index = (int)selectedItem.Type;
+        switch (selectedItem.Type)
+        {
+            case ItemsManager.ItemsTypes.Nothing:
+                break;
+            case ItemsManager.ItemsTypes.Medkit:
+                player.MaxHP += 30;
+                break;
+            case ItemsManager.ItemsTypes.BigMedkit:
+                player.Health += 100;
+                break;
+            case ItemsManager.ItemsTypes.Ammo:
+                player.Ammo += 1;
+                break;
+            case ItemsManager.ItemsTypes.BigAmmo:
+                player.Ammo += 3;
+                break;
+            case ItemsManager.ItemsTypes.Money:
+                player.Money += ItemsManager.Prices[index] * (int)player.LootCost;
+                break;
+            case ItemsManager.ItemsTypes.BigMoney:
+                player.Money += ItemsManager.Prices[index] * (int)player.LootCost;
+                break;
+        }
+        DeleteSelectedItem();
     }
 }

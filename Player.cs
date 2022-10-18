@@ -4,19 +4,22 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Character
 {
-    public float DiggingTime
+    public float LootTime
     {
         get
         {
-            return diggingTime;
+            return lootTime;
         }
         set
         {
-            diggingTime = value;
+            lootTime = value;
+            if (lootTime < 0)
+            {
+                lootTime = 0;
+            }
         }
     }
-    [SerializeField] private float diggingTime = 5f;
-
+    [SerializeField] private float lootTime = 5f;
     public int MaxAmmo
     {
         get
@@ -29,7 +32,6 @@ public class Player : Character
         }
     }
     [SerializeField] private int maxAmmo = 20;
-
     public int Money
     {
         get
@@ -43,7 +45,12 @@ public class Player : Character
         }
     }
     [SerializeField] private int money = 0;
-
+    public float LootCost
+    {
+        get => lootCost;
+        set => lootCost = value;
+    }
+    [SerializeField] private float lootCost = 1;
     public int Score
     {
         get
@@ -56,11 +63,52 @@ public class Player : Character
         }
     }
     [SerializeField] private int score;
+    public int Ammo { get => ammo; set => ammo = value; }
+    [SerializeField] private int ammo;
+    public int Bullets { get => bullets; set => bullets = value; }
+    [SerializeField] private int bullets;
+    public override int Health
+    {
+        get => base.Health;
+        set 
+        {
+            base.Health = value;
+        }
+    }
+    public override int MaxHP { 
+        get => base.MaxHP;
+        set
+        {
+            base.MaxHP = value;
+        }
+    }
 
-    [SerializeField] private Bullet bulletPrefab;
+    public override float ShootingSpeed { 
+        get => base.ShootingSpeed;
+        set
+        {
+            base.ShootingSpeed = value;
+            if (shootingSpeed < 0.1f)
+            {
+                shootingSpeed = 0.1f;
+            }
+        }
+    }
+
+    public bool Freeze
+    {
+        get => freeze;
+        set
+        {
+            freeze = value;
+        }
+    }
+    private bool freeze;
 
     private Camera cam;
     [SerializeField] private float camSpeed = 100f;
+
+    [SerializeField] private Bullet bulletPrefab;
 
     private ItemChecker checker;
     public bool IsInteracting
@@ -76,6 +124,13 @@ public class Player : Character
         }
     }
     private bool isInteracting;
+    public bool HoldTrigger
+    {
+        get => holdTrigger;
+        set => holdTrigger = value;
+    }
+    private bool holdTrigger;
+    private bool canShoot = true;
 
     [SerializeField] private GameObject corpseObject;
     [SerializeField] private TextControl moneyText;
@@ -91,6 +146,7 @@ public class Player : Character
 
     void FixedUpdate()
     {
+        if (freeze) return;
         if (isInteracting) return;
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
@@ -98,10 +154,11 @@ public class Player : Character
         LookAt(GetPointerInWorld(), 0.5f);  
         
     }
-
     private void Update()
     {
+        if (freeze) return;
         Interact();
+        if (holdTrigger) Shooting();
     }
 
     void LateUpdate()
@@ -141,7 +198,7 @@ public class Player : Character
         if (FindObjectOfType<Inventory>().HasSpace)
         {
             LookAt(interactiveItem.transform.position);
-            yield return new WaitForSeconds(diggingTime);
+            yield return new WaitForSeconds(lootTime);
             interactiveItem.Interact();
         }
 
@@ -150,8 +207,16 @@ public class Player : Character
 
     public override void Shooting()
     {
-        if (isInteracting) return;
+        if (!canShoot || isInteracting) return;
         base.Shooting();
+        canShoot = false;
+        StartCoroutine(ShootTimer());
+    }
+
+    private IEnumerator ShootTimer()
+    {  
+        yield return new WaitForSeconds(shootingSpeed);
+        canShoot = true;
     }
 
     private Vector3 GetPointerInWorld()
