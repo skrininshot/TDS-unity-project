@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WindowsController : MonoBehaviour
@@ -13,6 +11,7 @@ public class WindowsController : MonoBehaviour
         }
         menu.SetVisible(visible);
         FindObjectOfType<Player>().Freeze = visible;
+        Debug.Log(menu.GetType().ToString() + " " + (visible ? "show" : "hide"));
     }
 
     public void ShowInventory(bool visible)
@@ -23,6 +22,21 @@ public class WindowsController : MonoBehaviour
     public void ShowShop(bool visible)
     {
         ShowMenu(windows[1], visible);
+    }
+
+    public void ShowFinalScreen(bool visible)
+    {
+        ShowMenu(windows[2], visible);
+    }
+
+    public void ShowPause(bool visible)
+    {
+        ShowMenu(windows[3], visible);
+    }
+
+    public void ShowMainMenu(bool visible)
+    {
+        ShowMenu(windows[4], visible);
     }
 
     public void HideAll()

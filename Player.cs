@@ -1,9 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(Rigidbody2D))]
+using UnityEngine.UI;
+
 public class Player : Character
 {
+    
     public float LootTime
     {
         get
@@ -59,12 +60,35 @@ public class Player : Character
         }
         set
         {
-            Score = value;
+            score = value;
+            scoreText.Text = score.ToString();
         }
     }
     [SerializeField] private int score;
-    public int Ammo { get => ammo; set => ammo = value; }
+    public int Ammo { 
+        get => ammo;
+        set
+        {
+            ammo = value;
+            ammoText.Text = ammo.ToString();
+        }
+    }
     [SerializeField] private int ammo;
+    public int OfAmmo
+    {
+        get { return ofAmmo; }
+        set
+        {
+            ofAmmo = value;
+            if (ofAmmo > 0 && ammo <= 0)
+            {
+                ofAmmo--;
+                Ammo = maxAmmo;
+            }
+            ofAmmoText.Text = "/" + ofAmmo.ToString();
+        }
+    }
+    [SerializeField] private int ofAmmo = 0;
     public int Bullets { get => bullets; set => bullets = value; }
     [SerializeField] private int bullets;
     public override int Health
@@ -73,6 +97,7 @@ public class Player : Character
         set 
         {
             base.Health = value;
+            healthbar.fillAmount = (float)health / (float)maxHP;
         }
     }
     public override int MaxHP { 
@@ -80,20 +105,26 @@ public class Player : Character
         set
         {
             base.MaxHP = value;
+            healthbar.fillAmount = (float)health / (float)maxHP;
         }
     }
-
     public override float ShootingSpeed { 
         get => base.ShootingSpeed;
         set
         {
             base.ShootingSpeed = value;
-            if (shootingSpeed < 0.1f)
+            if (shootingSpeed < 0.05f)
             {
-                shootingSpeed = 0.1f;
+                shootingSpeed = 0.05f;
             }
         }
     }
+
+    private ItemChecker checker;
+    private Camera cam;
+    [SerializeField] private float camSpeed = 100f;
+    [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private GameObject corpsePrefab;
 
     public bool Freeze
     {
@@ -101,16 +132,13 @@ public class Player : Character
         set
         {
             freeze = value;
+            if (freeze)
+            {
+                StopMoving();
+            }
         }
     }
     private bool freeze;
-
-    private Camera cam;
-    [SerializeField] private float camSpeed = 100f;
-
-    [SerializeField] private Bullet bulletPrefab;
-
-    private ItemChecker checker;
     public bool IsInteracting
     {
         get
@@ -132,15 +160,19 @@ public class Player : Character
     private bool holdTrigger;
     private bool canShoot = true;
 
-    [SerializeField] private GameObject corpseObject;
     [SerializeField] private TextControl moneyText;
+    [SerializeField] private Image healthbar;
+    [SerializeField] private TextControl scoreText;
+    [SerializeField] private TextControl ammoText;
+    [SerializeField] private TextControl ofAmmoText;
       
     private void Start()
     {
-        moveSpeed = 5f;
+        Money = money;
+        Ammo = maxAmmo;
+        OfAmmo = ofAmmo;
         cam = Camera.main;
         bullet = bulletPrefab;
-        rb = GetComponent<Rigidbody2D>();
         checker = transform.GetComponentInChildren<ItemChecker>();
     }
 
@@ -151,8 +183,7 @@ public class Player : Character
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Movement(new Vector3(moveX, moveY, 0).normalized);
-        LookAt(GetPointerInWorld(), 0.5f);  
-        
+        LookAt(GetPointerInWorld(), 0.5f);    
     }
     private void Update()
     {
@@ -208,8 +239,18 @@ public class Player : Character
     public override void Shooting()
     {
         if (!canShoot || isInteracting) return;
+        if (ammo <= 0)
+        {
+            if (OfAmmo > 0)
+            {
+                Ammo = maxAmmo;
+                OfAmmo--;
+            }
+            else return;  
+        }
         base.Shooting();
         canShoot = false;
+        Ammo--;
         StartCoroutine(ShootTimer());
     }
 
@@ -228,10 +269,16 @@ public class Player : Character
     public override void Die()
     {
         base.Die();
-        FindObjectOfType<WindowsController>().HideAll();
-        Corpse corpse = Instantiate(corpseObject).GetComponent<Corpse>();
+        Corpse corpse = Instantiate(corpsePrefab).GetComponent<Corpse>();
         corpse.transform.rotation = damageDirection;
         corpse.transform.position = transform.position;
+        FindObjectOfType<WindowsController>().ShowFinalScreen(true);
+        FindObjectOfType<FinalScreen>().Score.Text = "SCORE: " + score.ToString();
+        if (score > PlayerPrefs.GetInt("Highscore", 0))
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+            FindObjectOfType<FinalScreen>().Highscore.Text = "HIGHSCORE: " + score.ToString();
+        }
         Destroy(gameObject);
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +33,8 @@ public class Shop : Menu
     {
         player = FindObjectOfType<Player>();
         accessible = false;
+        sellButton.gameObject.SetActive(false);
+        menuButton.SetActive(false);
 
         optionsNames[0] = "Max HP";
         optionsPoints[0] = 10;
@@ -51,7 +52,7 @@ public class Shop : Menu
         optionsInfo[2] = $"This option will increase the price you can sell items for. \nMakes items more expensive by {optionsPoints[2]} times"; 
 
         optionsNames[3] = "Loot Time"; 
-        optionsCosts[3] = 500;
+        optionsCosts[3] = 300;
         optionsPoints[3] = 1f;
         optionsInfo[3] = $"This option will reduce the speed of collecting items. \nReduces loot time by {optionsPoints[3]} seconds";
 
@@ -61,13 +62,13 @@ public class Shop : Menu
         optionsInfo[4] = $"This option will increase your movement speed. \nAdds {(int)optionsPoints[4]} to your speed";
 
         optionsNames[5] = "Max Ammo";
-        optionsCosts[5] = 200;
-        optionsPoints[5] = 5f;
+        optionsCosts[5] = 400;
+        optionsPoints[5] = 5;
         optionsInfo[5] = $"This option will increase the maximum number of ammo in a clip. \nAdds {(int)optionsPoints[5]} bullets to your max ammo";
         
         optionsNames[6] = "Shoot speed";
         optionsCosts[6] = 300;
-        optionsPoints[5] = 0.1f;
+        optionsPoints[6] = 0.1f;
         optionsInfo[6] = $"This option will increase your weapon's rate of fire. \nReduces shoot speed by {optionsPoints[6]} seconds";
         
         optionsNames[7] = "Luck";
@@ -111,7 +112,7 @@ public class Shop : Menu
         int index = (int)selectedOption.OptionType;
         headerText.Text = optionsNames[index].ToString() + $" : {optionsLevels[index]} Lvl";
         descriptionText.Text = optionsInfo[index];
-        costText.Text = (optionsCosts[index] * optionsCosts[index]).ToString() + "$";
+        costText.Text = (optionsCosts[index] * optionsLevels[index]).ToString() + "$";
     }
 
     public void Buy()
@@ -130,7 +131,7 @@ public class Shop : Menu
                 player.MaxHP += (int)optionsPoints[index];
                 break;
             case ShopOptionTypes.MaxDamage:
-                player.Damage = (int)optionsPoints[index];
+                player.Damage += (int)optionsPoints[index];
                 break;
             case ShopOptionTypes.LootCost:
                 player.LootCost += optionsPoints[index];

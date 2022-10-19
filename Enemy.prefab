@@ -136,6 +136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a7f5524497454418d7f4d7cc84b41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 100
+  health: 100
+  damage: 20
+  shootingSpeed: 0.5
+  moveSpeed: 2
   damageDirection: {x: 0, y: 0, z: 0, w: 0}
   bulletPrefab: {fileID: 5297764904531873839, guid: 5916f2bd8d6c97f49924a6c8edc23256, type: 3}
   corpseObject: {fileID: 6274838025404979983, guid: 8493cba5b514c004c9d8f5db78803dcf, type: 3}

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemsManager : MonoBehaviour
@@ -24,7 +22,7 @@ public class ItemsManager : MonoBehaviour
         "+100 health points",
         "+1 ammo clip",
         "+3 ammo clip",
-        $"+{Prices[(int)ItemsTypes.Money]} money",
-        $"+{Prices[(int)ItemsTypes.BigMoney]} money"
+        $"+money",
+        $"+lots of money"
     };
 }

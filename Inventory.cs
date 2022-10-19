@@ -29,7 +29,6 @@ public class Inventory : Menu
     {
         player = FindObjectOfType<Player>();
         Cells.AddRange(FindObjectsOfType<InventoryCell>());
-        Debug.Log("Start count of cells in inventory: " + Cells.Count);
         ClearItemInfo();
     }
 
@@ -102,7 +101,7 @@ public class Inventory : Menu
     {
         if (selectedItem == null) return;
         int index = (int)selectedItem.Type;
-        player.Money += ItemsManager.Prices[index] * (int)player.LootCost;
+        player.Money += (int)(ItemsManager.Prices[index] * player.LootCost);
         DeleteSelectedItem();
         Debug.Log($"Sell item. Items count: {Items.Count}");
     }
@@ -112,7 +111,7 @@ public class Inventory : Menu
         int index = (int)selectedItem.Type;
         itemName.Text = ItemsManager.ItemsNames[index];
         itemDescription.Text = ItemsManager.ItemsDescriptions[index];
-        itemPrice.Text = (ItemsManager.Prices[index] * (int)player.LootCost ).ToString() + "$";
+        itemPrice.Text = ((int)(ItemsManager.Prices[index] * player.LootCost)).ToString() + "$";
     }
 
     public void ClearItemInfo()
@@ -137,16 +136,16 @@ public class Inventory : Menu
                 player.Health += 100;
                 break;
             case ItemsManager.ItemsTypes.Ammo:
-                player.Ammo += 1;
+                player.OfAmmo += 1;
                 break;
             case ItemsManager.ItemsTypes.BigAmmo:
-                player.Ammo += 3;
+                player.OfAmmo += 3;
                 break;
             case ItemsManager.ItemsTypes.Money:
-                player.Money += ItemsManager.Prices[index] * (int)player.LootCost;
+                player.Money += (int)(ItemsManager.Prices[index] * player.LootCost);
                 break;
             case ItemsManager.ItemsTypes.BigMoney:
-                player.Money += ItemsManager.Prices[index] * (int)player.LootCost;
+                player.Money += (int)(ItemsManager.Prices[index] * player.LootCost);
                 break;
         }
         DeleteSelectedItem();

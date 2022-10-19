@@ -1,9 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Character
 {
+    public override float MoveSpeed
+    {
+        get => base.MoveSpeed;
+        set
+        {
+            base.MoveSpeed = value;
+            moveSpeed = value;
+        }
+    }
+
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private GameObject corpseObject;
     [SerializeField] private Item itemPrefab;
@@ -15,7 +24,6 @@ public class Enemy : Character
         bullet = bulletPrefab;
         player = FindObjectOfType<Player>();
         StartCoroutine(ShootingInPlayer());
-        rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -58,6 +66,7 @@ public class Enemy : Character
         corpse.transform.rotation = damageDirection;
         corpse.transform.position = transform.position;
         SpawnItems();
+        if (player is not null) player.Score += 100;
         Destroy(gameObject);    
     }
 

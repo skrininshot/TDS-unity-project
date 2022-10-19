@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Character : MonoBehaviour
@@ -15,7 +13,7 @@ public class Character : MonoBehaviour
             maxHP = value;
         }
     }
-    protected int maxHP = 100;
+    [SerializeField] protected int maxHP = 100;
     public virtual int Health
     {
         get
@@ -31,7 +29,7 @@ public class Character : MonoBehaviour
             }
         }
     }
-    protected int health = 100;
+    [SerializeField] protected int health = 100;
     public int Damage
     {
         get
@@ -43,7 +41,7 @@ public class Character : MonoBehaviour
             damage = value;
         }
     }
-    protected int damage = 25;
+    [SerializeField] protected int damage = 25;
     public virtual float ShootingSpeed
     {
         get
@@ -55,9 +53,9 @@ public class Character : MonoBehaviour
             shootingSpeed = value;
         }
     }
-    protected float shootingSpeed = 0.5f;
+    [SerializeField] protected float shootingSpeed = 0.5f;
 
-    public float MoveSpeed
+    public virtual float MoveSpeed
     {
         get
         {
@@ -68,12 +66,17 @@ public class Character : MonoBehaviour
             moveSpeed = value;
         }
     }
-    protected float moveSpeed = 10f;
+    [SerializeField] protected float moveSpeed = 10f;
 
     protected Bullet bullet;
     protected Rigidbody2D rb;
 
-    public Quaternion damageDirection;
+    [HideInInspector] public Quaternion damageDirection;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     public virtual void Shooting()
     {

@@ -25,10 +25,8 @@ public class Bullet : MonoBehaviour
         {
             character.damageDirection = transform.rotation;
             character.Health -= Damage;
-            Debug.Log("Collision with the character");
         }
         Destroy(gameObject);
-        Debug.Log("Bullet destroyed");
     }
 
     private IEnumerator BulletAnimation()

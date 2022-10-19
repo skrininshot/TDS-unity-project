@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Corpse : MonoBehaviour
 {
-    private float speed = 20f;
+    private float speed = 25f;
     private void Start()
     {
         StartCoroutine(FallingAnimation());
@@ -16,8 +15,9 @@ public class Corpse : MonoBehaviour
         {
             yield return new WaitForSeconds(Time.fixedDeltaTime);
             transform.position += transform.right * speed * Time.deltaTime;
-            speed -= speed / 1.5f;
+            speed -= speed / 1.1f;
         }
         Destroy(GetComponent<Corpse>());
+
     }
 }

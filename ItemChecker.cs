@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,6 @@ public class ItemChecker : MonoBehaviour
         if (Interactive != null)
         {
             Interactives.Add(Interactive);
-            Debug.Log("Interactive enter the checker. Interactives count: " + Interactives.Count.ToString());
         }
     }
 
@@ -26,7 +24,6 @@ public class ItemChecker : MonoBehaviour
         if (Interactive != null)
         {
             Interactives.Remove(Interactive);
-            Debug.Log("Interactive exit the checker. Interactives count: " + Interactives.Count);
         }
     }
 
