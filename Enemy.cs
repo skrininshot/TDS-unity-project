@@ -49,6 +49,15 @@ public class Enemy : Character
         }
     }
 
+    public override void Shooting()
+    {
+        Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
+        newBullet.transform.position = transform.position + transform.right * 1.25f;
+        float scatter = Random.Range(-2, 2);
+        newBullet.transform.rotation = Quaternion.Euler(transform.rotation.x,transform.rotation.y,transform.rotation.z + scatter);
+        newBullet.Damage = damage;
+    }
+
     private IEnumerator ShootingInPlayer()
     {
         yield return new WaitForSeconds(1f);
