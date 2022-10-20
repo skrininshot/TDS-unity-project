@@ -27,10 +27,10 @@ public class Building : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var player = collision.GetComponent<Player>();
-        if (player is not null)
+        if (collision.GetComponent<Player>() is not null)
         {
             pointer.gameObject.SetActive(false);
+            return;
         }
     }
 
