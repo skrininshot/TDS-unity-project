@@ -13054,9 +13054,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b71db2bc7c5a64cab8fc63724b932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 20
-  maxSpawnTime: 30
+  minSpawnTime: 1
+  maxSpawnTime: 2
   enemyPrefab: {fileID: 5490021031561757745, guid: f6e9c378189a42248ba5ded0787eb157, type: 3}
+  spawnCounter: 0
 --- !u!4 &1176549771
 Transform:
   m_ObjectHideFlags: 0
@@ -20235,7 +20236,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 8.75
 --- !u!114 &1764858387
 MonoBehaviour:
   m_ObjectHideFlags: 0

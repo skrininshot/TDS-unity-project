@@ -94,7 +94,8 @@ public class Enemy : Character
         corpse.transform.position = transform.position;
         SpawnItems();
         if (player is not null) player.Score += 100;
-        FindObjectOfType<EnemySpawner>().StartTimer();
+        EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
+        spawner.StartTimer();
         Destroy(gameObject);    
     }
 

@@ -30,6 +30,7 @@ public class Building : MonoBehaviour
         if (collision.GetComponent<Player>() is not null)
         {
             pointer.gameObject.SetActive(false);
+            spawner.StopTimer();
             return;
         }
     }
@@ -46,7 +47,7 @@ public class Building : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var player = collision.gameObject.GetComponent<Player>();
-        if (player is null && FindObjectsOfType<Enemy>().Length > 0) return;
+        if (player is null || FindObjectsOfType<Enemy>().Length > 0) return;
         col.isTrigger = true;
         spawner.StopTimer();
         foreach (Doors door in doors)
