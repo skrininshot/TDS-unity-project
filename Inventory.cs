@@ -130,7 +130,7 @@ public class Inventory : Menu
             case ItemsManager.ItemsTypes.Nothing:
                 break;
             case ItemsManager.ItemsTypes.Medkit:
-                player.MaxHP += 30;
+                player.Health += 30;
                 break;
             case ItemsManager.ItemsTypes.BigMedkit:
                 player.Health += 100;

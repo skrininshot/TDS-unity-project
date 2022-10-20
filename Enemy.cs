@@ -70,7 +70,7 @@ public class Enemy : Character
         Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
         newBullet.transform.position = transform.position + transform.right * 1.25f;
         Quaternion scatter = transform.rotation;
-        scatter.z += Random.Range(-0.3f, 0.3f);
+        scatter.z += Random.Range(-0.2f, 0.2f);
         newBullet.transform.rotation = scatter;
 
         newBullet.Damage = damage;

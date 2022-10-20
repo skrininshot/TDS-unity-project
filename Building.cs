@@ -46,14 +46,12 @@ public class Building : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var player = collision.gameObject.GetComponent<Player>();
-        if (player is not null && FindObjectsOfType<Enemy>().Length == 0)
+        if (player is null && FindObjectsOfType<Enemy>().Length > 0) return;
+        col.isTrigger = true;
+        spawner.StopTimer();
+        foreach (Doors door in doors)
         {
-            col.isTrigger = true;
-            spawner.StopTimer();
-            foreach (Doors door in doors)
-            {
-                door.Open();
-            }
+            door.Open();
         }
     }
 }
