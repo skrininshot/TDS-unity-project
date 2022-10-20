@@ -8,10 +8,10 @@ public class Building : MonoBehaviour
     private Collider2D col;
     private EnemySpawner spawner;
     [SerializeField] private Doors[] doors;
+    [SerializeField] private HucksterPointer pointer;
     private void Start()
     {
         col = GetComponent<Collider2D>();
-        col.isTrigger = true;
         spawner = FindObjectOfType<EnemySpawner>();
     }
 
@@ -21,6 +21,16 @@ public class Building : MonoBehaviour
         if (player is not null)
         {
             spawner.StartTimer();
+            pointer.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var player = collision.GetComponent<Player>();
+        if (player is not null)
+        {
+            pointer.gameObject.SetActive(false);
         }
     }
 
