@@ -38,22 +38,20 @@ public class Enemy : Character
             alpha += 0.1f;
             color.a = alpha;
             sprite.color = color;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
     private void FixedUpdate()
     {
-        if (player == null) return;
-        LookAt(player.transform.position);
-
-        Vector3 direction = player.transform.position - transform.position;
-
         if (player == null)
         {
             StopMoving();
             return;
         }
+        LookAt(player.transform.position);
+
+        Vector3 direction = player.transform.position - transform.position;
 
         if (Vector3.Distance(transform.position, player.transform.position) > 5f)
         {

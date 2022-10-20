@@ -37,11 +37,11 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         if (player == null) return;
-        Vector3 spawnPosition = player.transform.position + Quaternion.Euler(0, 0, Random.Range(-180, 180)) * transform.right * 5;
+        Vector3 spawnPosition = player.transform.position + Quaternion.Euler(0, 0, Random.Range(-180, 180)) * Vector3.right * 13;
         Enemy currentEnemy = Instantiate(enemyPrefab);
         currentEnemy.transform.position = new Vector3(
-            Mathf.Clamp(spawnPosition.x, -35, 35),
-            Mathf.Clamp(spawnPosition.x, -35, 35),
+            Mathf.Clamp(spawnPosition.x, -48, 48),
+            Mathf.Clamp(spawnPosition.y, -48, 48),
             -2f
             );
 
