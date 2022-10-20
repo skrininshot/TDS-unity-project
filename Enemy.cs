@@ -53,8 +53,10 @@ public class Enemy : Character
     {
         Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
         newBullet.transform.position = transform.position + transform.right * 1.25f;
-        float scatter = Random.Range(-2, 2);
-        newBullet.transform.rotation = Quaternion.Euler(transform.rotation.x,transform.rotation.y,transform.rotation.z + scatter);
+        Quaternion scatter = transform.rotation;
+        scatter.z += Random.Range(-0.15f, 0.15f);
+        newBullet.transform.rotation = scatter;
+
         newBullet.Damage = damage;
     }
 
@@ -76,6 +78,7 @@ public class Enemy : Character
         corpse.transform.position = transform.position;
         SpawnItems();
         if (player is not null) player.Score += 100;
+        FindObjectOfType<EnemySpawner>().StartTimer();
         Destroy(gameObject);    
     }
 

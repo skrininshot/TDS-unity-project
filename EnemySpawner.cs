@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private IEnumerator SpawnTimer()
     {
+        yield return new WaitForSeconds(0.5f);
         if (currentEnemy != null)  yield break;
         float spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
         yield return new WaitForSeconds(spawnTime);

@@ -7,6 +7,7 @@ public class Building : MonoBehaviour
 {
     private Collider2D col;
     private EnemySpawner spawner;
+    [SerializeField] private Doors[] doors;
     private void Start()
     {
         col = GetComponent<Collider2D>();
@@ -26,6 +27,10 @@ public class Building : MonoBehaviour
     public void Close()
     {
         col.isTrigger = false;
+        foreach (Doors door in doors)
+        {
+            door.Close();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -35,6 +40,10 @@ public class Building : MonoBehaviour
         {
             col.isTrigger = true;
             spawner.StopTimer();
+            foreach (Doors door in doors)
+            {
+                door.Open();
+            }
         }
     }
 }

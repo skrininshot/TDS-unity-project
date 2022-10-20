@@ -307,15 +307,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.4745098
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.9490196
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.9490196
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_RaycastTarget
@@ -3162,6 +3162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 527145637}
+  - component: {fileID: 527145638}
   m_Layer: 0
   m_Name: Doors Up
   m_TagString: Untagged
@@ -3191,6 +3192,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 4.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &527145638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527145636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8a4600fcca74e43b60f31223042989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &528746383
 GameObject:
   m_ObjectHideFlags: 0
@@ -4800,7 +4813,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816402806}
-  m_LocalRotation: {x: 0, y: 0, z: -0.8433915, w: 0.53729963}
+  m_LocalRotation: {x: 0, y: -0, z: 0.8433915, w: -0.5372995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4808,7 +4821,7 @@ RectTransform:
   - {fileID: 765914653}
   m_Father: {fileID: 527145637}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 245}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.02, y: 0.00125}
@@ -6545,8 +6558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b71db2bc7c5a64cab8fc63724b932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 5
-  maxSpawnTime: 10
+  minSpawnTime: 30
+  maxSpawnTime: 60
   enemyPrefab: {fileID: 5490021031561757745, guid: f6e9c378189a42248ba5ded0787eb157, type: 3}
 --- !u!4 &1176549771
 Transform:
@@ -9068,7 +9081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.09019608, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9351,7 +9364,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596852343}
-  m_LocalRotation: {x: 0, y: 0, z: -0.8433915, w: 0.53729963}
+  m_LocalRotation: {x: 0, y: -0, z: 0.8433915, w: -0.5372995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9359,7 +9372,7 @@ RectTransform:
   - {fileID: 1693244009}
   m_Father: {fileID: 1787274901}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 245}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.02, y: 0.00125}
@@ -10856,7 +10869,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 9
+  m_Radius: 12
 --- !u!114 &1764858387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10869,6 +10882,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd465acdf51044e9304d8e1d2e1925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doors:
+  - {fileID: 527145638}
+  - {fileID: 1787274902}
 --- !u!1 &1773479889
 GameObject:
   m_ObjectHideFlags: 0
@@ -11027,6 +11043,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1787274901}
+  - component: {fileID: 1787274902}
   m_Layer: 0
   m_Name: Doors Down
   m_TagString: Untagged
@@ -11056,6 +11073,18 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000009879469, y: -4.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1787274902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787274900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8a4600fcca74e43b60f31223042989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1790411584
 GameObject:
   m_ObjectHideFlags: 0
@@ -11598,15 +11627,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.47450984
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.9490197
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.9490197
       objectReference: {fileID: 0}
     - target: {fileID: 8764070978701974731, guid: 89500f46a69819f41ac906fdac5b968e, type: 3}
       propertyPath: m_RaycastTarget
@@ -12020,7 +12049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2264151, g: 0.114061944, b: 0.114061944, a: 1}
+  m_Color: {r: 0.1882353, g: 0.09411765, b: 0.09411765, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12288,7 +12317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6784314, g: 0.10925109, b: 0.047058802, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.050980393}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12843,7 +12872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.09019608, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
