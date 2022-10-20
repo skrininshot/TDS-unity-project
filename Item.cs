@@ -64,6 +64,7 @@ public class Item : Interactive
         if (FindObjectOfType<Inventory>().AddItem(type)) 
         {
             Destroy(gameObject);
+            FindObjectOfType<ItemsManager>().SpawnItems();
         }
     }
 }

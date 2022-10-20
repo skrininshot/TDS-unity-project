@@ -16,6 +16,9 @@ public class Enemy : Character
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private GameObject corpseObject;
     [SerializeField] private Item itemPrefab;
+    private SpriteRenderer sprite;
+    private Color color = Color.white;
+    private float alpha = 0f;
 
     private Player player;
     private void Start()
@@ -24,6 +27,19 @@ public class Enemy : Character
         bullet = bulletPrefab;
         player = FindObjectOfType<Player>();
         StartCoroutine(ShootingInPlayer());
+        StartCoroutine(ChangeAlpha());
+    }
+
+    private IEnumerator ChangeAlpha()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+        while (alpha < 1)
+        {
+            alpha += 0.1f;
+            color.a = alpha;
+            sprite.color = color;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 
     private void FixedUpdate()
@@ -54,7 +70,7 @@ public class Enemy : Character
         Bullet newBullet = Instantiate(bullet).GetComponent<Bullet>();
         newBullet.transform.position = transform.position + transform.right * 1.25f;
         Quaternion scatter = transform.rotation;
-        scatter.z += Random.Range(-0.15f, 0.15f);
+        scatter.z += Random.Range(-0.3f, 0.3f);
         newBullet.transform.rotation = scatter;
 
         newBullet.Damage = damage;
@@ -62,7 +78,7 @@ public class Enemy : Character
 
     private IEnumerator ShootingInPlayer()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         do
         {
             yield return new WaitForSeconds(0.5f);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private float minSpawnTime = 60f;
-    [SerializeField] private float maxSpawnTime = 90f;
+    [SerializeField] private float minSpawnTime = 45f;
+    [SerializeField] private float maxSpawnTime = 60f;
     [SerializeField] private Enemy enemyPrefab;
     private Enemy currentEnemy;
     private Player player;
@@ -26,9 +26,13 @@ public class EnemySpawner : MonoBehaviour
         if (currentEnemy != null)  yield break;
         float spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
         yield return new WaitForSeconds(spawnTime);
-        Vector3 spawnPosition = Quaternion.Euler(0, 0, Random.Range(-180, 180)) * transform.right * 10;
+        Vector3 spawnPosition = player.transform.position + Quaternion.Euler(0, 0, Random.Range(-180, 180)) * transform.right * 15;
         currentEnemy = Instantiate(enemyPrefab);
-        currentEnemy.transform.position = player.transform.position + spawnPosition;
+        currentEnemy.transform.position = new Vector3(
+            Mathf.Clamp(spawnPosition.x, -35,35),
+            Mathf.Clamp(spawnPosition.x, -35,35),
+            -2f
+            );
         building.Close();
         Debug.Log("Enemy spawned");
     }
