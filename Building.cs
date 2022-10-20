@@ -30,7 +30,6 @@ public class Building : MonoBehaviour
         if (collision.GetComponent<Player>() is not null)
         {
             pointer.gameObject.SetActive(false);
-            //spawner.StopTimer();
             return;
         }
     }
