@@ -6301,6 +6301,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 5
+  OptionName: Max Ammo
+  OptionDescription: This option will increase the maximum number of ammo in a clip.
+  OptionCost: 200
+  OptionPoint: 5
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &473252958
 MonoBehaviour:
@@ -7013,6 +7017,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 8
+  OptionName: Inventory Slot
+  OptionDescription: This option gives you one extra slot in your inventory.
+  OptionCost: 300
+  OptionPoint: 1
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &514141760
 MonoBehaviour:
@@ -7397,6 +7405,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 6
+  OptionName: Shoot Speed
+  OptionDescription: This option will increase your weapon's rate of fire.
+  OptionCost: 200
+  OptionPoint: 0.1
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &528746387
 MonoBehaviour:
@@ -15899,6 +15911,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 0
+  OptionName: Max HP
+  OptionDescription: This option will increase your maximum health.
+  OptionCost: 100
+  OptionPoint: 5
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &1193825112
 MonoBehaviour:
@@ -16762,6 +16778,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 7
+  OptionName: Luck
+  OptionDescription: This option will increase your your luck. But is it worth relying
+    on it?
+  OptionCost: 1000
+  OptionPoint: 0
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &1229929752
 MonoBehaviour:
@@ -19116,6 +19137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 3
+  OptionName: Loot Time
+  OptionDescription: This option will reduce the speed of collecting items.
+  OptionCost: 200
+  OptionPoint: 1
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &1384764660
 MonoBehaviour:
@@ -19715,6 +19740,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 2
+  OptionName: Loot Cost
+  OptionDescription: This option will increase the price you can sell items for.
+  OptionCost: 200
+  OptionPoint: 0.25
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &1406414747
 MonoBehaviour:
@@ -21503,6 +21532,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 4
+  OptionName: Move Speed
+  OptionDescription: This option will increase your movement speed.
+  OptionCost: 300
+  OptionPoint: 1
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &1534028758
 MonoBehaviour:
@@ -25197,7 +25230,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 8.75
+  m_Radius: 8.35
 --- !u!114 &1764858387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25445,6 +25478,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionType: 1
+  OptionName: Damage
+  OptionDescription: This option will increase the maximum damage dealt.
+  OptionCost: 300
+  OptionPoint: 5
   selectedColor: {r: 0.7058824, g: 0.3647059, b: 0.3647059, a: 0.7490196}
 --- !u!114 &1773479893
 MonoBehaviour:

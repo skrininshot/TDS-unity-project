@@ -2,8 +2,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopOption : MonoBehaviour
-{   
-    public Shop.ShopOptionTypes OptionType; 
+{
+    public Shop.ShopOptionTypes OptionType;
+    public string OptionName;
+    public string OptionDescription;
+    public int OptionCost;
+    public float OptionPoint;
+    public int OptionLevel
+    {
+        get
+        {
+            return optionLevel;
+        }
+        set
+        {
+            optionLevel = value;
+            OptionCost *= optionLevel;
+        }
+    }
+    private int optionLevel;
+    [SerializeField] private Color selectedColor;
     [HideInInspector] public bool IsSelected
     {
         get
@@ -16,7 +34,6 @@ public class ShopOption : MonoBehaviour
         }
     }
     private bool isSelected;
-    [SerializeField] private Color selectedColor;
     private Color defaultColor;
     private Image image;
 

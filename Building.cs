@@ -5,13 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 public class Building : MonoBehaviour
 {
-    private Collider2D col;
+    private CircleCollider2D col;
     private EnemySpawner spawner;
     [SerializeField] private Doors[] doors;
     [SerializeField] private HucksterPointer pointer;
     private void Start()
     {
-        col = GetComponent<Collider2D>();
+        col = GetComponent<CircleCollider2D>();
         spawner = FindObjectOfType<EnemySpawner>();
     }
 
