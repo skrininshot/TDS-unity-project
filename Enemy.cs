@@ -109,6 +109,5 @@ public class Enemy : Character
             Vector3 playerPosition = transform.position + randomPosition;
             newItem.transform.position = new Vector3(playerPosition.x, playerPosition.y, -0.2f);
         }
-        Debug.Log($"Spawned {countProbability[randomCount]} items");
     }
 }

@@ -20,7 +20,7 @@ public class ShopOption : MonoBehaviour
             OptionCost *= optionLevel;
         }
     }
-    private int optionLevel;
+    private int optionLevel = 1;
     [SerializeField] private Color selectedColor;
     [HideInInspector] public bool IsSelected
     {
